@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { GlobalStyle } from './Components/Style/GlobalStyle'
+import { Header } from './Components/Header/Header'
+import { Items } from './Components/Items/Items'
+import { ModalItem } from './Components/Modal/ModalItem'
+import { Order } from './Components/Order/Order'
+import React from 'react'
 
 function App() {
+  const [openItem, setOpenItem] = React.useState(null)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle/>
+      <Header/>
+      <Items setOpenItem={setOpenItem}/>
+      <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
+      <Order/>
+    </>
   );
 }
 
