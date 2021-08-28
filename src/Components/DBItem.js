@@ -4,7 +4,7 @@ const dbItem = {
 			name: 'Royal Canin',
 			img: '../itemImage/RoyalCanin.jpg',
 			id: 1,
-			price: 300,
+			price: 311,
 			volume: ['400 г', '2 кг', '4 кг', '10 кг'],
 			description: 'Полнорационный сбалансированный корм для стерилизованных кошек (в возрасте от 1 года до 7 лет).'
 		},
@@ -13,7 +13,7 @@ const dbItem = {
 			img: '../itemImage/PurinaProPlan.jpg',
 			id: 2,
 			price: 300,
-			volume: ['400 г', '1,5 кг', '10 кг'],
+			volume: ['400 г', '2 кг', '10 кг'],
 			description: 'Сухой корм для взрослых кошек с чувствительной кожей с Лососем, Purina Pro Plan Elegant Adult'
 		},
 		{
@@ -21,7 +21,7 @@ const dbItem = {
 			img: '../itemImage/Farmina.jpg',
 			id: 3,
 			price: 350,
-			volume: ['300 г', '1,5 кг', '5 кг', '10 кг'],
+			volume: ['300 г', '2 кг', '5 кг', '10 кг'],
 			description: 'Сухой корм для взрослых кошек со спельтой, овсом, треской и апельсином, Farmina N&D Low'
 		},
 		{

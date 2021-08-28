@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Button } from '../Style/Button'
 import { OrderListItem } from './OrderListItem'
+import { getCurrency, totalPriceItems } from '../Functions/secondaryFunction'
 
 const OrderStyled = styled.section`
   display: flex;
@@ -10,7 +11,7 @@ const OrderStyled = styled.section`
   left: 0;
   bottom: 0;
   background-color: white;
-  min-width: 380px;
+  width: 400px;
   height: calc(100% - 80px);
   box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.25);
   padding: 20px;
@@ -44,19 +45,39 @@ const TotalPrice = styled.div`
   min-width: 65px;
   margin-left: 20px;
 `
-export const Order = () => {
+const EmptyList = styled.p`
+  text-align: center;
+`
+export const Order = ({ orders, setOrders, setOpenItem }) => {
+  const deleteItem = index => {
+    const newOrder = [...orders]
+    newOrder.splice(index, 1)
+    setOrders(newOrder)
+  }
+  const total = orders.reduce((result, order) => 
+    totalPriceItems(order) + result, 0)
+  const totalCounter = orders.reduce((result, order) => 
+    order.count + result, 0) 
+
   return (
     <OrderStyled>
       <OrderTitle>Ваш заказ</OrderTitle>
       <OrderContent>
+        {orders.length ? 
         <OrderList>
-          <OrderListItem/>
-          <OrderListItem/>
-        </OrderList>
+          {orders.map((order, index) => <OrderListItem 
+            order={order}
+            key={index}
+            deleteItem={deleteItem}
+            index={index}
+            setOpenItem={setOpenItem}/>)}
+        </OrderList> : 
+        <EmptyList>Список заказов пуст</EmptyList>}
       </OrderContent>
       <Total>
         <span>Итого</span>
-        <TotalPrice>600 p</TotalPrice>
+        <span>{totalCounter}</span>
+        <TotalPrice>{getCurrency(total)}</TotalPrice>
       </Total>
       <Button>Оформить</Button>
     </OrderStyled>

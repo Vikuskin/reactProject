@@ -3,17 +3,19 @@ import { Header } from './Components/Header/Header'
 import { Items } from './Components/Items/Items'
 import { ModalItem } from './Components/Modal/ModalItem'
 import { Order } from './Components/Order/Order'
-import React from 'react'
+import { useOpenItem } from './Components/Hooks/useOpenItem'
+import { useOrders } from './Components/Hooks/useOrders'
 
 function App() {
-  const [openItem, setOpenItem] = React.useState(null)
+  const openItem = useOpenItem()
+  const orders = useOrders()
   return (
     <>
       <GlobalStyle/>
       <Header/>
-      <Items setOpenItem={setOpenItem}/>
-      <ModalItem openItem={openItem} setOpenItem={setOpenItem}/>
-      <Order/>
+      <Items {...openItem}/>
+      { openItem.openItem && <ModalItem {...openItem} {...orders}/>}
+      <Order {...orders} {...openItem}/>
     </>
   );
 }

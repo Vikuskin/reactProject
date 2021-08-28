@@ -1,6 +1,12 @@
 import styled from 'styled-components'
-import { getCurrency } from '../Functions/secondaryFunction'
+import { getCurrency, totalPriceItems } from '../Functions/secondaryFunction'
 import { Button } from '../Style/Button'
+import { CountItem } from './CountItem'
+import { useCount } from '../Hooks/useCount'
+import { Choices } from './Choices'
+import { Volume } from './Volume'
+import { useChoices } from '../Hooks/useChoices'
+import { useVolume } from '../Hooks/useVolume'
 
 const Overlay = styled.div`
   position: fixed;
@@ -24,7 +30,7 @@ const Modal = styled.div`
   display: flex;
 `
 const BannerImg = styled.img`
-  width: 300px;
+  width: 50%;
   height: 100%;
   background-image: url(${({img}) => img});
   background-size: contain;
@@ -33,7 +39,7 @@ const BannerImg = styled.img`
 `
 const ModalContent = styled.div`
   padding: 20px;
-  width: 300px;
+  width: 50%;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -46,14 +52,39 @@ const ContentTop = styled.div`
   justify-content: space-between;
   margin-bottom: 15px;
 `
-
-export const ModalItem = ({ openItem, setOpenItem }) => {
-  function closeModal(e) {
+const TotalPriceItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+  const counter = useCount(openItem.count)
+  const choices = useChoices(openItem)
+  const volume = useVolume(openItem)
+  const isEdit = openItem.index > -1
+  const closeModal = e => {
     if (e.target.id === 'overlay') {
       setOpenItem(null)
     }
   }
-  if (!openItem) return null
+
+  const editOrder = () => {
+    const newOrders = [...orders]
+    newOrders[openItem.index] = order
+    setOrders(newOrders)
+    setOpenItem(null)
+  }
+
+  const order = {
+    ...openItem,
+    count: counter.count,
+    choice: choices.choices,
+    volumes: volume.volume
+  }
+
+  const addToOrder = () => {
+    setOrders([...orders, order])
+    setOpenItem(null)
+  }
 
   return (
     <Overlay id='overlay' onClick={closeModal}>
@@ -62,13 +93,22 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
         <ModalContent>
           <ContentTop>
             <p>{openItem.name}</p>
-            <p>{getCurrency(openItem.price)}</p>  
+            <p>{getCurrency(totalPriceItems(order))}</p>  
           </ContentTop>
           <ContentDesc>
             {openItem.description}
           </ContentDesc>
-          <Button>
-            Купить
+          <CountItem {...counter}></CountItem>
+          {openItem.choices && <Choices {...choices} openItem={openItem}/>}
+          {openItem.volume && <Volume {...volume} openItem={openItem}/>}
+          <TotalPriceItem>
+            <span>Цена:</span>
+            <span>{getCurrency(totalPriceItems(order))}</span>
+          </TotalPriceItem>
+          <Button 
+            onClick={isEdit ? editOrder : addToOrder}
+            disabled={order.choices ? !order.choice : order.volume ? !order.volumes : false}>
+            {isEdit ? 'Редактировать' : 'Добавить'}
           </Button>
         </ModalContent>
       </Modal>

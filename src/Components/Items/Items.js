@@ -5,7 +5,7 @@ import dbItem from '../DBItem'
 const ItemsStyled = styled.main`
   background-color: #ccc;
   margin-top: 80px;
-  margin-left: 380px;
+  margin-left: 400px;
 `
 const SectionItem = styled.section`
   padding: 30px;
