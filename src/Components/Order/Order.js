@@ -1,7 +1,10 @@
 import styled from 'styled-components'
 import { Button } from '../Style/Button'
 import { OrderListItem } from './OrderListItem'
+import { Title, Total, TotalPrice } from '../Style/TitleTotalPrice'
 import { getCurrency, totalPriceItems } from '../Functions/secondaryFunction'
+import { useContext } from 'react'
+import { Context } from '../Functions/context'
 
 const OrderStyled = styled.section`
   display: flex;
@@ -16,39 +19,22 @@ const OrderStyled = styled.section`
   box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.25);
   padding: 20px;
 `
-const OrderTitle = styled.h2`
-  background-color: #ff9601;
-  margin: 20px;
-  color: white;
-  height: 50px;
-  padding: 13px;
-  font-size: 20px;
-  font-weight: normal;
-  text-align: center;
-  border-top: 1px solid #f0f0f0;
-`
 const OrderContent = styled.div`
   flex-grow: 1;
 `
 const OrderList = styled.ul`
 
 `
-const Total = styled.div`
-  display: flex;
-  margin-bottom: 30px;
-  & span:first-child {
-    flex-grow: 1;
-  }
-`
-const TotalPrice = styled.div`
-  text-align: right;
-  min-width: 65px;
-  margin-left: 20px;
-`
 const EmptyList = styled.p`
   text-align: center;
 `
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+export const Order = () => {
+  const { 
+    orders: { orders, setOrders }, 
+    auth: { authentication, logIn },
+    orderConfirm: { setOpenOrderConfirm }
+  } = useContext(Context)
+
   const deleteItem = index => {
     const newOrder = [...orders]
     newOrder.splice(index, 1)
@@ -61,7 +47,7 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
 
   return (
     <OrderStyled>
-      <OrderTitle>Ваш заказ</OrderTitle>
+      <Title>Ваш заказ</Title>
       <OrderContent>
         {orders.length ? 
         <OrderList>
@@ -70,16 +56,26 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
             key={index}
             deleteItem={deleteItem}
             index={index}
-            setOpenItem={setOpenItem}/>)}
+          />)}
         </OrderList> : 
         <EmptyList>Список заказов пуст</EmptyList>}
       </OrderContent>
-      <Total>
-        <span>Итого</span>
-        <span>{totalCounter}</span>
-        <TotalPrice>{getCurrency(total)}</TotalPrice>
-      </Total>
-      <Button>Оформить</Button>
+      {orders.length ?
+        <>
+        <Total>
+          <span>Итого</span>
+          <span>{totalCounter}</span>
+          <TotalPrice>{getCurrency(total)}</TotalPrice>
+        </Total>
+        <Button onClick={() => {
+          if (authentication) {
+            setOpenOrderConfirm(true)
+          } else {
+            logIn()
+          }
+        }}>Оформить</Button>
+        </> :
+      null}
     </OrderStyled>
   )
 }

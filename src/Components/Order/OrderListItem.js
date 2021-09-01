@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import trash from '../../image/trash.svg'
 import { getCurrency, totalPriceItems } from '../Functions/secondaryFunction'
-import { useRef } from 'react'
+import { useRef, useContext } from 'react'
+import { Context } from '../Functions/context'
 
 const TrashButton = styled.button`
   background-image: url(${trash});
@@ -36,7 +37,8 @@ const Choices = styled.div`
   font-size: 14px;
   width: 100%;
 `
-export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
+  const { openItem: { setOpenItem } } = useContext(Context)
   
   const refDeleteButton = useRef(null)
   return (

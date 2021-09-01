@@ -7,21 +7,10 @@ import { Choices } from './Choices'
 import { Volume } from './Volume'
 import { useChoices } from '../Hooks/useChoices'
 import { useVolume } from '../Hooks/useVolume'
+import { Overlay } from '../Style/Overlay'
+import { useContext } from 'react'
+import { Context } from '../Functions/context'
 
-const Overlay = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  z-index: 20;
-`
 const Modal = styled.div`
   background-color: #fff;
   width: 600px;
@@ -56,7 +45,12 @@ const TotalPriceItem = styled.div`
   display: flex;
   justify-content: space-between;
 `
-export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+export const ModalItem = () => {
+  const { 
+    openItem: { openItem, setOpenItem },
+    orders: { orders, setOrders }
+  } = useContext(Context)
+  
   const counter = useCount(openItem.count)
   const choices = useChoices(openItem)
   const volume = useVolume(openItem)

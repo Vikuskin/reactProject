@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { getCurrency } from '../Functions/secondaryFunction'
+import { useContext } from 'react'
+import { Context } from '../Functions/context'
 
 const List = styled.ul`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 `
-
 const Item = styled.li`
   width: 210px;
   height: 296px;
@@ -43,16 +44,20 @@ const Item = styled.li`
   }
 `
 
-export const ListItem = ({ itemList, setOpenItem }) => (
-  <List>
-    {itemList.map(item => (
-      <Item 
-        key={item.id}
-        img={item.img}
-        onClick={() => setOpenItem(item)}>
-        <p>{item.name}</p>
-        <p>{getCurrency(item.price)}</p>
-      </Item>
-    ))}
-  </List>
-)
+export const ListItem = ({ itemList }) => {
+  const { openItem: { setOpenItem } } = useContext(Context) 
+
+  return (
+    <List>
+      {itemList.map(item => (
+        <Item 
+          key={item.id}
+          img={item.img}
+          onClick={() => setOpenItem(item)}>
+          <p>{item.name}</p>
+          <p>{getCurrency(item.price)}</p>
+        </Item>
+      ))}
+    </List>
+  )
+}

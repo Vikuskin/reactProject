@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ListItem } from './ListItem'
-import dbItem from '../DBItem'
+import { useFetch } from '../Hooks/useFetch'
+import { useCount } from '../Hooks/useCount'
 
 const ItemsStyled = styled.main`
   background-color: #ccc;
@@ -16,31 +17,32 @@ const TitleItem = styled.h2`
   font-weight: normal;
 `
 
-export const Items = ({ setOpenItem }) => (
+export const Items = () => {
+  const res = useFetch()
+  const dbItem = res.response
+
+  return (
   <ItemsStyled>
-    <SectionItem>
-      <TitleItem>Сухой корм</TitleItem>
-      <ListItem 
-        itemList={dbItem.dryFood}
-        setOpenItem={setOpenItem}/>
-    </SectionItem>
-    <SectionItem>
-      <TitleItem>Консервы</TitleItem>
-      <ListItem 
-        itemList={dbItem.cannedFood}
-        setOpenItem={setOpenItem}/>
-    </SectionItem>
-    <SectionItem>
-      <TitleItem>Лакомства</TitleItem>
-      <ListItem 
-        itemList={dbItem.treats}
-        setOpenItem={setOpenItem}/>
-    </SectionItem>
-    <SectionItem>
-      <TitleItem>Игрушки</TitleItem>
-      <ListItem 
-        itemList={dbItem.toys}
-        setOpenItem={setOpenItem}/>
-    </SectionItem>
-  </ItemsStyled>
-)
+    {dbItem ?
+      <>
+        <SectionItem>
+          <TitleItem>Сухой корм</TitleItem>
+          <ListItem itemList={dbItem.dryFood}/>
+        </SectionItem>
+        <SectionItem>
+          <TitleItem>Консервы</TitleItem>
+          <ListItem itemList={dbItem.cannedFood}/>        
+        </SectionItem>
+        <SectionItem>
+          <TitleItem>Лакомства</TitleItem>
+          <ListItem itemList={dbItem.treats}/>
+        </SectionItem>
+        <SectionItem>
+          <TitleItem>Игрушки</TitleItem>
+          <ListItem itemList={dbItem.toys}/>
+        </SectionItem>
+      </> : res.error ?
+      <div>Ошибка...</div> :
+      <div>Загрузка..</div>}
+  </ItemsStyled>)
+}
