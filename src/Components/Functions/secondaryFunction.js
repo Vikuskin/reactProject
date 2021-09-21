@@ -10,7 +10,6 @@ export const totalPriceItems = order => {
     const totalPriceVolume = selectedVolume * (order.price / selectedVolume)
     return totalPriceVolume * order.count
   }
-  
 
   return order.price * order.count;
 } 

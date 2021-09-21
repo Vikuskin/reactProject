@@ -20,4 +20,7 @@ export const Button = styled.button`
     background-color: #ccc;
     border-color: #aaa;
   }
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `

@@ -10,6 +10,12 @@ export const Title = styled.h2`
   font-weight: normal;
   text-align: center;
   border-top: 1px solid #f0f0f0;
+  @media (max-width: 576px) {
+    font-size: 15px;
+    padding: 5px;
+    margin: 0;
+    height: 30px;
+  }
 `
 export const Total = styled.div`
   display: flex;
@@ -17,9 +23,15 @@ export const Total = styled.div`
   & span:first-child {
     flex-grow: 1;
   }
+  @media (max-width: 576px) {
+    max-width: 140px;
+  }
 `
 export const TotalPrice = styled.div`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
+  @media (max-width: 576px) {
+    margin-left: 5px;
+  }
 `

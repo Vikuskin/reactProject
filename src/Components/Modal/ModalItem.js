@@ -17,6 +17,9 @@ const Modal = styled.div`
   height: 400px;
   z-index: 100;
   display: flex;
+  @media (max-width: 576px) {
+    font-size: 12px
+  }
 `
 const BannerImg = styled.img`
   width: 50%;
@@ -35,6 +38,7 @@ const ModalContent = styled.div`
 `
 const ContentDesc = styled.p`
   font-size: 15px;
+  flex-grow: 0.5;
 `
 const ContentTop = styled.div`
   display: flex;
@@ -44,6 +48,7 @@ const ContentTop = styled.div`
 const TotalPriceItem = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-grow: 0.5
 `
 export const ModalItem = () => {
   const { 

@@ -41,6 +41,9 @@ const LoginButton = styled.button`
   color: black;
   font-size: 16px;
   border: none;
+  @media (max-width: 768px) {
+    font-size: 15px
+  }
 `;
 const ImgLogin = styled.img`
   width: 32px;
@@ -54,6 +57,12 @@ const CallbackHeader = styled.div`
   border-left: 1px solid #f0f0f0;
   height: 100%;
   font-size: 16px
+  @media (max-width: 768px) {
+    font-size: 15px
+  }
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 const ImgCallback = styled.img`
   margin-right: 5px;
@@ -69,6 +78,9 @@ const Logout = styled.span`
   font-weight: 700px;
   cursor: pointer;
   margin-left: 15px;
+  @media (max-width: 768px) {
+    font-size: 15px
+  }
 `
 
 export const Header = () => {

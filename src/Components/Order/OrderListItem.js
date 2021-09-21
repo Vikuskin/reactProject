@@ -21,6 +21,9 @@ const OrderItemStyled = styled.ul`
   margin: 15px 0;
   font-size: 18px;
   cursor: pointer;
+  @media (max-width: 576px) {
+    font-size: 15px
+  }
 `
 const ItemName = styled.span`
   flex-grow: 1;

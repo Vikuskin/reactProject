@@ -42,6 +42,10 @@ const Item = styled.li`
       opacity: 0;
     }
   }
+  @media (max-width: 576px) {
+    width: 130px;
+    height: 206px;
+  }
 `
 
 export const ListItem = ({ itemList }) => {

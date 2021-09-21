@@ -70,4 +70,10 @@ export const GlobalStyle = createGlobalStyle`
   input::-webkit-inner-spin-button {
     -webkit-appearance: none; 
   }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 15px
+    }
+  }
 `;

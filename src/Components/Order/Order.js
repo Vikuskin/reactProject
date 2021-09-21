@@ -18,6 +18,12 @@ const OrderStyled = styled.section`
   height: calc(100% - 80px);
   box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.25);
   padding: 20px;
+  @media (max-width: 768px) {
+    width: 250px
+  }
+  @media (max-width: 576px) {
+    width: 150px;
+  }
 `
 const OrderContent = styled.div`
   flex-grow: 1;
